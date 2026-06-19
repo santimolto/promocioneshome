@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="santi_extensions" translate="label" sortOrder="900">
+            <label>Santi Extensions</label>
+        </tab>
+
+        <section id="santi_promocioneshome" translate="label" sortOrder="75"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Promociones</label>
+            <tab>santi_extensions</tab>
+            <resource>Magento_Config::config</resource>
+
+            <group id="banner" translate="label" type="text" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Banner Promociones</label>
+
+                <field id="helper" translate="label" type="note" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ayuda</label>
+                    <comment><![CDATA[
+                        <p><strong>Imagen:</strong> WebP recomendado, por ejemplo 1920×1080.</p>
+                        <p><strong>Vídeo:</strong> MP4 H.264 o WebM. Incluye <em>poster</em> para mejorar el LCP.</p>
+                        <p>Si subes un vídeo se usará el vídeo; si no, se mostrará la imagen.</p>
+                        <p>El template de ejemplo está preparado para copiarse en:<br>
+                        <code>app/design/frontend/Mb/Hyva2/Magento_Theme/templates/home/promociones.phtml</code></p>
+                    ]]></comment>
+                </field>
+
+                <field id="enabled" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Habilitado</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="image" translate="label" type="image" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Imagen</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">santi_promocioneshome</upload_dir>
+                    <base_url type="media" scope_info="1">santi_promocioneshome</base_url>
+                </field>
+
+                <field id="image_alt" translate="label" type="text" sortOrder="25"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Alt de la imagen</label>
+                </field>
+
+                <field id="video" translate="label" type="file" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Vídeo</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\File</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">santi_promocioneshome</upload_dir>
+                    <base_url type="media" scope_info="1">santi_promocioneshome</base_url>
+                    <comment>MP4 H.264 o WebM</comment>
+                </field>
+
+                <field id="poster" translate="label" type="image" sortOrder="35"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Poster vídeo / fallback</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">santi_promocioneshome</upload_dir>
+                    <base_url type="media" scope_info="1">santi_promocioneshome</base_url>
+                </field>
+
+                <field id="title" translate="label" type="text" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Título</label>
+                </field>
+
+                <field id="subtitle" translate="label" type="text" sortOrder="50"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Subtítulo</label>
+                </field>
+
+                <field id="button_text" translate="label" type="text" sortOrder="60"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Texto del botón</label>
+                </field>
+
+                <field id="button_url" translate="label" type="text" sortOrder="70"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>URL del botón</label>
+                    <comment>Ej.: promociones.html, /promociones.html o URL absoluta</comment>
+                </field>
+
+                <field id="color_primary" translate="label" type="text" sortOrder="80"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Color primario hex</label>
+                    <comment>Ej.: #8cc4b2</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
