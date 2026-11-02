@@ -27,6 +27,7 @@ santi/module-promocioneshome
 - Configuración desde `Santi Extensions > Promociones`
 - Compatible con multistore
 - Imagen o vídeo
+- Imagen y poster específicos para móvil (opcionales)
 - Poster para vídeo
 - Título
 - Subtítulo
@@ -87,9 +88,11 @@ Campos disponibles:
 
 - Habilitado
 - Imagen
+- Imagen móvil (opcional, < 768px)
 - Alt de la imagen
 - Vídeo
 - Poster vídeo / fallback
+- Poster vídeo móvil (opcional)
 - Título
 - Subtítulo
 - Texto del botón
@@ -127,3 +130,5 @@ $banner = $vm->getBanner();
 - Si se configura vídeo, el vídeo tiene prioridad sobre la imagen.
 - Si no hay vídeo ni imagen, el template usa fallback.
 - Si la URL del botón no empieza por `http`, `https` o `/`, se convierte automáticamente en URL absoluta usando la base URL del store actual.
+- **Imagen móvil:** si se sube, se muestra en pantallas de menos de 768px mediante `<picture>`; si no, se usa la imagen de escritorio. Recomendado formato vertical (p. ej. 1080×1350).
+- **Poster móvil:** si hay vídeo y poster móvil (o imagen móvil), el template pinta un `<picture>` responsive detrás del vídeo, porque el atributo `poster` no admite versiones por breakpoint.

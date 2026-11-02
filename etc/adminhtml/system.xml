@@ -21,6 +21,7 @@
                     <label>Ayuda</label>
                     <comment><![CDATA[
                         <p><strong>Imagen:</strong> WebP recomendado, por ejemplo 1920×1080.</p>
+                        <p><strong>Imagen móvil:</strong> opcional, vertical (p. ej. 1080×1350). Se usa en pantallas &lt; 768px.</p>
                         <p><strong>Vídeo:</strong> MP4 H.264 o WebM. Incluye <em>poster</em> para mejorar el LCP.</p>
                         <p>Si subes un vídeo se usará el vídeo; si no, se mostrará la imagen.</p>
                         <p>El template de ejemplo está preparado para copiarse en:<br>
@@ -40,6 +41,15 @@
                     <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
                     <upload_dir config="system/filesystem/media" scope_info="1">santi_promocioneshome</upload_dir>
                     <base_url type="media" scope_info="1">santi_promocioneshome</base_url>
+                </field>
+
+                <field id="image_mobile" translate="label comment" type="image" sortOrder="22"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Imagen móvil</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">santi_promocioneshome</upload_dir>
+                    <base_url type="media" scope_info="1">santi_promocioneshome</base_url>
+                    <comment>Opcional. Se muestra en pantallas de menos de 768px. Recomendado vertical, p. ej. 1080×1350 o 1080×1920. Si se deja vacía se usa la imagen de escritorio.</comment>
                 </field>
 
                 <field id="image_alt" translate="label" type="text" sortOrder="25"
@@ -62,6 +72,15 @@
                     <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
                     <upload_dir config="system/filesystem/media" scope_info="1">santi_promocioneshome</upload_dir>
                     <base_url type="media" scope_info="1">santi_promocioneshome</base_url>
+                </field>
+
+                <field id="poster_mobile" translate="label comment" type="image" sortOrder="36"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Poster vídeo móvil</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">santi_promocioneshome</upload_dir>
+                    <base_url type="media" scope_info="1">santi_promocioneshome</base_url>
+                    <comment>Opcional. Poster vertical para móvil. Si se deja vacío se usa la imagen móvil y, si tampoco hay, el poster de escritorio.</comment>
                 </field>
 
                 <field id="title" translate="label" type="text" sortOrder="40"

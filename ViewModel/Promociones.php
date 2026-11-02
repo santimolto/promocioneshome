@@ -39,26 +39,25 @@ class Promociones implements ArgumentInterface
         }
 
         $image = (string) $this->get($p . 'image', '');
+        $imageMobile = (string) $this->get($p . 'image_mobile', '');
         $alt = (string) $this->get($p . 'image_alt', '');
         $video = (string) $this->get($p . 'video', '');
         $poster = (string) $this->get($p . 'poster', '');
+        $posterMobile = (string) $this->get($p . 'poster_mobile', '');
         $title = (string) $this->get($p . 'title', '');
         $subtitle = (string) $this->get($p . 'subtitle', '');
         $btnTxt = (string) $this->get($p . 'button_text', '');
         $btnUrl = (string) $this->get($p . 'button_url', '');
         $color = (string) $this->get($p . 'color_primary', '#8cc4b2');
 
-        $imageUrl = $image
-            ? $mediaBase . '/santi_promocioneshome/' . ltrim($image, '/')
-            : '';
+        $imageUrl = $this->mediaUrl($mediaBase, $image);
+        $imageMobileUrl = $this->mediaUrl($mediaBase, $imageMobile);
+        $videoUrl = $this->mediaUrl($mediaBase, $video);
 
-        $videoUrl = $video
-            ? $mediaBase . '/santi_promocioneshome/' . ltrim($video, '/')
-            : '';
+        $posterUrl = $this->mediaUrl($mediaBase, $poster) ?: $imageUrl;
 
-        $posterUrl = $poster
-            ? $mediaBase . '/santi_promocioneshome/' . ltrim($poster, '/')
-            : ($imageUrl ?: '');
+        // Poster móvil: propio > imagen móvil > (vacío, el template usa el de escritorio).
+        $posterMobileUrl = $this->mediaUrl($mediaBase, $posterMobile) ?: $imageMobileUrl;
 
         if ($btnUrl && !preg_match('#^https?://#i', $btnUrl) && $btnUrl[0] !== '/') {
             $btnUrl = $base . '/' . ltrim($btnUrl, '/');
@@ -71,16 +70,25 @@ class Promociones implements ArgumentInterface
 
         return [
             'is_video'      => (bool) $videoUrl,
-            'image_url'     => $imageUrl,
-            'image_alt'     => $alt,
-            'video_url'     => $videoUrl,
-            'poster_url'    => $posterUrl,
+            'image_url'          => $imageUrl,
+            'image_mobile_url'   => $imageMobileUrl,
+            'image_alt'          => $alt,
+            'video_url'          => $videoUrl,
+            'poster_url'         => $posterUrl,
+            'poster_mobile_url'  => $posterMobileUrl,
             'title'         => $title,
             'subtitle'      => $subtitle,
             'button_text'   => $btnTxt,
             'button_url'    => $btnUrl,
             'color_primary' => $color,
         ];
+    }
+
+    private function mediaUrl(string $mediaBase, string $file): string
+    {
+        return $file !== ''
+            ? $mediaBase . '/santi_promocioneshome/' . ltrim($file, '/')
+            : '';
     }
 
     private function get(string $path, $default = null)

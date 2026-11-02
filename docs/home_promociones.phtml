@@ -21,6 +21,7 @@ if (!$banner) {
     $banner = [
         'is_video'      => false,
         'image_url'     => $block->getViewFileUrl('images/home/promociones.webp'),
+        'image_mobile_url' => '',
         'image_alt'     => __('Banner Promociones'),
         'title'         => __('Promociones'),
         'subtitle'      => '',
@@ -41,22 +42,47 @@ $imageUrl = $banner['image_url'] ?? '';
 $imageAlt = $banner['image_alt'] ?? ($title ?: 'Promociones');
 $videoUrl = $banner['video_url'] ?? '';
 $posterUrl = $banner['poster_url'] ?? $imageUrl;
+$imageMobileUrl = $banner['image_mobile_url'] ?? '';
+$posterMobileUrl = $banner['poster_mobile_url'] ?? '';
+
+// Punto de corte móvil/escritorio (equivale a "md" de Tailwind: < 768px es móvil).
+$mobileMedia = '(max-width: 767px)';
 ?>
 
 <section class="relative w-full overflow-hidden my-10" style="min-height: 250px;">
     <?php if ($isVideo && $videoUrl): ?>
+        <?php if ($posterMobileUrl): ?>
+            <?php // Poster responsive: el atributo poster de <video> no admite versión móvil,
+                  // así que se pinta un <picture> debajo y el vídeo (transparente hasta cargar) encima. ?>
+            <picture>
+                <source media="<?= $escaper->escapeHtmlAttr($mobileMedia) ?>"
+                        srcset="<?= $escaper->escapeUrl($posterMobileUrl) ?>">
+                <img class="absolute inset-0 w-full h-full object-cover"
+                     src="<?= $escaper->escapeUrl($posterUrl ?: $posterMobileUrl) ?>"
+                     alt=""
+                     aria-hidden="true"
+                     width="1920"
+                     height="1080" />
+            </picture>
+        <?php endif; ?>
         <video class="absolute inset-0 w-full h-full object-cover"
                autoplay loop muted playsinline
-               <?php if ($posterUrl): ?>poster="<?= $escaper->escapeUrl($posterUrl) ?>"<?php endif; ?>>
+               <?php if ($posterUrl && !$posterMobileUrl): ?>poster="<?= $escaper->escapeUrl($posterUrl) ?>"<?php endif; ?>>
             <source src="<?= $escaper->escapeUrl($videoUrl) ?>" type="video/mp4">
         </video>
     <?php else: ?>
-        <img class="absolute inset-0 w-full h-full object-cover"
-             src="<?= $escaper->escapeUrl($imageUrl) ?>"
-             alt="<?= $escaper->escapeHtmlAttr($imageAlt) ?>"
-             loading="lazy"
-             width="1920"
-             height="1080" />
+        <picture>
+            <?php if ($imageMobileUrl): ?>
+                <source media="<?= $escaper->escapeHtmlAttr($mobileMedia) ?>"
+                        srcset="<?= $escaper->escapeUrl($imageMobileUrl) ?>">
+            <?php endif; ?>
+            <img class="absolute inset-0 w-full h-full object-cover"
+                 src="<?= $escaper->escapeUrl($imageUrl) ?>"
+                 alt="<?= $escaper->escapeHtmlAttr($imageAlt) ?>"
+                 loading="lazy"
+                 width="1920"
+                 height="1080" />
+        </picture>
     <?php endif; ?>
 
     <div class="relative z-10 flex items-center justify-center h-full w-full py-16 px-4 md:py-24 lg:py-32 bg-black bg-opacity-40">

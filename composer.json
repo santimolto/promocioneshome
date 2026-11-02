@@ -2,7 +2,7 @@
   "name": "santi/module-promocioneshome",
   "description": "Gestión dinámica del bloque Promociones del home vía System Config (multistore). Imagen o vídeo + título, subtítulo y botón.",
   "type": "magento2-module",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "proprietary",
   "autoload": {
     "files": [
